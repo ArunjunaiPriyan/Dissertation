@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Magna</title>
+	<link rel="icon" type="image/x-icon" href="./img/MAGNA-Logo_small.jpg">
+	<link rel="stylesheet" href="./css/main_style.css">
+	<script src="./js/main.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+		integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="https://cdn.jsdelivr.net/gh/GedMarc/bootstrap4-dialog/dist/css/bootstrap-dialog.css" rel="stylesheet"
+		type="text/css" />
+	<script src="https://cdn.jsdelivr.net/gh/GedMarc/bootstrap4-dialog/dist/js/bootstrap-dialog.js"></script>
+	<script type="text/javascript">
+		function preventBack() {
+			window.history.forward();
+		}
+		setTimeout("preventBack()", 0);
+		window.onunload = function () {null};
+
+	</script>
+</head>
+
+<body onload="mainTableContent()">
+	<div>
+		<div class="header">
+			<img src="./img/Magna-Logo-White-Reverse-LR-V1.0.png" class="logo" width="10%"></img>
+			<div class="header-right">
+				<button type="button" class="btn btn-danger" data-toggle="tooltip" id="logout" data-placement="bottom" title="Tooltip on bottom" onclick="logout()">
+				   <div style="display: flex">
+				     
+				    <div style="font-weight: bold;">
+				      
+				      LOGOUT
+				    <!--  <span class="tooltip-text">This is a tooltip</span> -->
+				    </div>
+					<div>
+					 <span class="material-icons icon" style="color:white">
+					logout
+				    </span>
+					</div>
+				   </div>
+				</button>
+			</div>
+		</div>
+		<div style="margin:5px">
+			<div>
+				<dev id="summary_table" style="margin-top:100px;display:block">
+					<div class="d-flex pull-right">
+						<div id="showmenuMain1" style="display:none;" class="p-2">
+							<button class="btn btn-primary" type="button" style="float: right;display:block"
+								onclick="showSec()" id="sModal" data-bs-toggle="modal" data-bs-target="#secModal"
+								data-backdrop="false">Section</button>
+						</div>
+						<div id="showmenuMain4" style="display:none;" class="p-2">
+							<button class="btn btn-primary" onclick="showDash()">Dashboard</button>
+						</div>
+						<div id="showmenuMain6" style="display:none;" class="p-2">
+							<button class="btn btn-primary" onclick="showEmpMaster()">Employee Master</button>
+						</div>
+						<div id="showmenuMain2" style="display:none;" class="p-2">
+							<button class="btn btn-primary" onclick="showApp()">Approval List</button>
+						</div>
+						<div id="showmenuMain3" style="display:none;" class="p-2">
+							<button class="btn btn-primary" onclick="showCngPwd()">Change Password</button>
+						</div>
+						<div id="showmenuMain5" style="display:none;" class="p-2">
+							<button class="btn btn-primary" onclick="showRtnList()">Return List</button>
+						</div>
+						<!--						<div id="openMenuMain" style="display: block;" class="p-2"><a>-->
+						<!--								<span style="font-size:36px;" class="material-icons"-->
+						<!--									onclick="showMenuMain()">menu</span>-->
+						<!--							</a></div>-->
+						<!--						<div id="closeMenuMain" style="display: none;" class="p-2"><a>-->
+						<!--								<span style="font-size:36px;" class="material-icons"-->
+						<!--									onclick="showMenuMain()">close</span>-->
+						<!--							</a></div>-->
+					</div>
+					<div style="justify-content: center;display: flex;padding: 5px;">
+						<h4>Action points Overall Summary</h4>
+					</div>
+					<div class="table-container">
+					  <table class="table" border-spacing="1px" padding="2px" width="80%" id="tableDynamicss"></table>
+					</div>
+					<div>
+						<div class="modal fade" id="secModal" role="dialog" tabindex="-1"
+							aria-labelledby="secModalLabel" aria-hidden="true">
+							<div id="modalshort" class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header bg-primary text-white">
+										<h5 class="modal-title" id="frModalLabel">Community Section</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div id="outer">
+										<div class="inner"><button id="addsec" type="button" class="btn btn-primary"
+												onclick="InsertSec()">Add Section</button></div>
+										<div class="inner"><button id="remsec" type="button" class="btn btn-primary"
+												onclick="RemoveSec()">Remove
+												Section</button></div>
+									</div>
+									<div id="secBodyAdd" style="display: none;" class="modal-body">
+										<div>
+											<form>
+												<div class="form-outline mb-2">
+													<label class="form-label" for="SecTitle"><b>Section
+															Title</b></label>
+													<input type="text" id="SecTitle" class="form-control" />
+												</div>
+												<div class="form-outline mb-2">
+													<label class="form-label" for="secType"><b>Section Type</b></label>
+													<select id="secType" class="form-control">
+														<option value="Internal">Internal</option>
+														<option value="External">External</option>
+													</select>
+												</div>
+												<div class="form-outline mb-2">
+													<label class="form-label"
+														for="secRespondibility"><b>Responsibility</b></label>
+													<select id="secRespondibility" class="form-control">
+													</select>
+												</div>
+												
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button id="closeModal" type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Close</button>
+											<button id="modalDisplay" type="button" class="btn btn-primary"
+												onclick="insertSection()">Create</button>
+										</div>
+									</div>
+									<div id="secBodyRem" style="display: none;" class="modal-body">
+										<div>
+											<form>
+												<div class="form-outline mb-2">
+													<label class="form-label" for="oldSec">Responsibility</label>
+													<select id="oldSec" class="form-control"></select>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button id="closeModalsec" type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Close</button>
+											<button id="modalDisplay" type="button" class="btn btn-primary"
+												onclick="RemoveSection()">Remove</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div id="subtable_1" style="display: none;">
+
+				<div class="d-flex">
+
+				</div>
+				<div id="hidesub">
+					<div class="row" style="margin:10px;margin-top:100px">
+						<div class="col-sm-1">
+							<div class="me-auto p-2" style="padding:0px"><button class="btn btn-primary"
+									onclick="backtomain()"><b>Back</b></button>
+							</div>
+							
+						</div>
+						<div class="col-sm-3" style="margin-left:50px">
+							<div class="d-flex" style="background-color: #7BAFB0;border-radius:1%;">
+								<div class="p-2" style="padding:2px !important">
+									<span class="material-icons" style="font-size:40px;">edit_note</span>
+								</div>
+								<div class="p-2">
+									<font size="4">Open Item Count - <span id="opencount">-</span></font>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3" style="margin-left:50px">
+							<div class="d-flex" style="background-color: #90EE90;border-radius:1%;">
+								<div class="p-2" style="padding:2px !important">
+									<span class="material-icons" style="font-size:40px;">task</span>
+								</div>
+								<div class="p-2">
+									<font size="4">Closed Item Count - <span id="closedcount">-</span></font>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3" style="margin-left:50px">
+							<div class="d-flex" style="background-color: #FFD580;border-radius:1%;">
+								<div class="p-2" style="padding:2px !important">
+									<span class="material-icons" style="font-size:40px;">toc</span>
+								</div>
+								<div class="p-2">
+									<font size="4">Total Item Count - <span id="totalcount">-</span></font>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card" style="background-color: white; width: 100%; height: 80vh; overflow-y: auto;">
+						<div class="card-header" style="background-color:black;border:1px;padding:3px">
+							<div id="sltName" class="d-none"></div>
+							<h3 style="margin:5px;color:white"> Action Point - <u><span id="sltNamedept"><span></u>
+								<button class="btn btn-primary" type="button" style="float: right;display:block"
+									onclick="updatefairness()" id="frmodal" data-bs-toggle="modal"
+									data-bs-target="#frModal" data-backdrop="false">Add New</button>
+								<div class="form-check form-switch" style="float: right;">
+									<input class="form-check-input" id="checkBox" type="checkbox" role="switch"
+										onclick="toggleClick()">
+								</div>
+								<font id="toggleswitch" size='4'>Open</font>
+							</h3>
+						</div>
+						<div class="card-body" id="divIdOpen" style="margin-top:5px">
+							<input type="text" id="searchBox" placeholder="Search to filter.."
+								onkeyup="performSearch()">
+							<table class="table" id="tableDynamic" border-spacing="1px" padding="2px" width="80%">
+								<img src="./img/nodata1.png" class="logo" id="tablenodata" style="display:none" width="30%" height="25%"></img>
+							</table>
+							<div style="float: right;">
+								page: <span id="page"></span>
+								<button class="btn btn-primary" type="button" onclick="prevPage()" href='#'
+									id="btn_prev">Prev</button>
+								<button class="btn btn-primary" type="button" onclick="nextPage()" href='#'
+									id="btn_next">Next</button>
+							</div>
+						</div>
+						<div class="card-body" id="divIdClosed" style="margin-top:5px;display:none">
+							<input type="text" id="searchBoxClosed" placeholder="Search to filter.."
+								onkeyup="performSearchCls()">
+							<table class="table" id="tableDynamicClosed" border-spacing="1px" padding="2px" width="80%">
+							</table>
+							<div style="float: right;">
+								page: <span id="pagecls"></span>
+								<button class="btn btn-primary" type="button" onclick="prevPagecls()" href='#'
+									id="btn_prevcls">Prev</button>
+								<button class="btn btn-primary" type="button" onclick="nextPagecls()" href='#'
+									id="btn_nextcls">Next</button>
+							</div>
+						</div>
+						<div class="modal fade" id="frModal" tabindex="-1" aria-labelledby="frModalLabel"
+							aria-hidden="true">
+							<div id="frModal_Dialog" class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header bg-primary text-white">
+										<h5 class="modal-title" id="frModalLabel">Update Action Points - <span
+												id="dpt"></span></h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div>
+											<form>
+												<div class="form-outline mb-4">
+													<label class="form-label" for="target">Target Date</label>
+													<input type="date" id="target" class="form-control datepicker" />
+												</div>
+												<div class="form-outline mb-4">
+													<label class="form-label" for="Section">Section</label>
+													<select id="Section" class="form-control"></select>
+												</div>
+												<div class="form-outline mb-4">
+													<label class="form-label" for="Type">Type</label>
+													<select id="Type" class="form-control">
+													 <option value="Task">Task</option>
+													  <option value="Project">Project</option>
+													</select>
+												</div>
+												<div class="form-outline mb-4" id="deptforadmin" style="display:none">
+													<label class="form-label"
+														for="dept">Department</label>
+													<select id="dept" class="form-control" onchange="departmentonchange(event)"></select>
+												</div>
+												
+												<div class="form-outline mb-4" id="resforadmin" style="display: none;">
+													<label class="form-label"
+														for="Resp">Responsibility</label>
+													<select id="Responsibility" class="form-control"></select>
+												</div>
+												
+												<div class="form-outline mb-4" id="resforuser" style="display: block;">
+													<label class="form-label"
+														for="Respondibility">Responsibility</label>
+													<select id="Respondibility" class="form-control"></select>
+												</div>
+												<div class="form-outline mb-4">
+													<div class="form-check form-switch" style="float: right">
+														<input class="form-check-input" id="checkBoxAction"
+															type="checkbox" role="switch" onclick="toggleAction()">
+													</div>
+													<font id="toggleswitchAction" style="float: right;padding-right:5px"
+														size='3'>Normal</font>
+												</div>
+												<div class="form-outline mb-4">
+													<label class="form-label" for="Action">Action Point</label>
+													<textarea class="form-control" id="Action" rows="4"></textarea>
+													<table class='table' id="subData" style="display: none;"></table>
+												</div>
+												<div class="form-outline mb-4">
+													<label class="form-label" for="Action">Upload File</label>
+													<input class="form-control mb-2" type="file" id="formFile"
+														onchange="getuploadpic(event)" accept="image/*">
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button id="closeModal2" type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Close</button>
+											<button id="modalDisplay" type="button" class="btn btn-primary"
+												onclick="insertActionpoint()">Save</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div id="passwordChange" style="display: none;margin-top:80px">
+				<div class="d-flex">
+					<div class="me-auto p-2" style="padding:0px"><button class="btn btn-primary"
+							onclick="backtomain()"><b>Back</b></button>
+					</div>
+				</div>
+				<div class="container-fluid">
+					<div class="row m-0" style="height: 100vh">
+						<div class="login_oueter">
+							<form action="" method="post" id="login" autocomplete="off" class="bg-light border p-3">
+								<div class="form-row">
+									<h4 class="title my-3">Change Password</h4>
+									<div class="col-12">
+										<div class="input-group mb-3">
+											<label class="col-sm-2 col-form-label" for="userSelect"><b>User
+													Type</b></label>
+											<select id="userSelect" class="form-control col-sm-9"
+												onchange="getuserList(this.value)">
+												<option value="">
+													<--Select-->
+												</option>
+												<option value="0">Super Admin</option>
+												<option value="2">Admin</option>
+												<option value="1">Department</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="input-group mb-3">
+											<label class="col-sm-2 col-form-label"
+												for="empSelect"><b>UserName</b></label>
+											<select id="empSelect" disabled class="form-control col-sm-9"
+												onchange="getEmpList(this.value)">
+											</select>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="input-group mb-3">
+											<label for="passwordOld" class="col-sm-2 col-form-label"><b>Current
+													Password</b></label>
+											<input name="password" type="password" value=""
+												class="input form-control col-sm-9" id="passwordOld"
+												placeholder="password" required="true" aria-label="password"
+												aria-describedby="basic-addon1" />
+											<i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+											<div class="input-group-append">
+												<span class="input-group-text" onclick="password_show_hide('Old');">
+													<span class="material-icons" id="show_eye_Old">visibility</span>
+													<span class="material-icons d-none"
+														id="hide_eye_Old">visibility_off</span>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="row">
+											<div class="input-group mb-3">
+												<label for="passwordNew" class="col-sm-2 col-form-label"><b>New
+														Password</b></label>
+												<input name="password" type="password" value=""
+													class="input form-control col-sm-9" id="passwordNew"
+													placeholder="password" required="true" aria-label="password"
+													aria-describedby="basic-addon1" />
+												<div class="input-group-append">
+													<span class="input-group-text" onclick="password_show_hide('New');">
+														<span class="material-icons" id="show_eye_New">visibility</span>
+														<span class="material-icons d-none"
+															id="hide_eye_New">visibility_off</span>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="row">
+											<div class="input-group mb-3">
+												<label for="passwordAgain" class="col-sm-2 col-form-label"><b>Re-Enter
+														Password</b></label>
+												<input name="password" type="password" value=""
+													class="input form-control col-sm-9" id="passwordAgain"
+													placeholder="password" required="true" aria-label="password"
+													aria-describedby="basic-addon1" />
+												<div class="input-group-append">
+													<span class="input-group-text"
+														onclick="password_show_hide('Again');">
+														<span class="material-icons"
+															id="show_eye_Again">visibility</span>
+														<span class="material-icons d-none"
+															id="hide_eye_Again">visibility_off</span>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-primary" type="button" name="signin"
+											onclick="onSubmitPwd()">change</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="appList" style="display: none;margin:5px;margin-top:90px">
+			<div class="d-flex">
+				<div class="me-auto p-2" style="padding:0px"><button class="btn btn-primary"
+						onclick="backtomain()"><b>Back</b></button>
+				</div>
+			</div>
+			<div style="justify-content: center;display: flex;padding: 5px;">
+				<h4>Overall Approval Pending List</h4>
+			</div>
+			<table class="table" border-spacing="1px" padding="2px" width="80%" id="tableDynamicApp"></table>
+			<!--			<button class="btn btn-primary d-none" type="button" id="bsmodal1" data-bs-toggle="modal"-->
+			<!--				data-bs-target="#bsModal" data-backdrop="false"></button>-->
+			<div id="bsmodal1" style="display: none;">
+				</br>
+				</br>
+				</br>
+				<p id="commentBox"></p>
+				</br>
+				<div>
+					<img id="imgElem" style="height:100%;width:100%"></img>
+				</div>
+				<button class="btn btn-primary" type="button" name="signin" onclick="ShowPicBtn()">Close</button>
+			</div>
+			<!--			<div class="modal fade" id="bsModal" tabindex="-1" aria-labelledby="bsModalLabel" aria-hidden="true">-->
+			<!--				<div class="modal-dialog">-->
+			<!--					<div class="modal-content" style="width:150%">-->
+			<!--						<div class="modal-body">-->
+			<!--							<div>-->
+			<!--								<img id="imgElem" style="height:100%;width:100%"></img>-->
+			<!--							</div>-->
+			<!--							<p id="commentBox"></p>-->
+			<!--							<div class="modal-footer">-->
+			<!--								<button id="closeModalbs" type="button" class="btn btn-secondary"-->
+			<!--									data-bs-dismiss="modal">Close</button>-->
+			<!--							</div>-->
+			<!--						</div>-->
+			<!--					</div>-->
+			<!--				</div>-->
+			<!--			</div>-->
+		</div>
+		<div id="returnList" style="display: none;margin:5px;margin-top:90px">
+			<div class="d-flex">
+				<div class="me-auto p-2" style="padding:0px"><button class="btn btn-primary"
+						onclick="backtomain()"><b>Back</b></button>
+				</div>
+			</div>
+			<div style="justify-content: center;display: flex;padding: 5px;">
+				<h4>Rejected List</h4>
+			</div>
+			<table class="table" border-spacing="1px" padding="2px" width="80%" id="tableDynamicReturn"></table>
+		</div>
+		<div id="EmpList" style="display: none;margin:5px;margin-top:80px">
+			<div class="d-flex">
+				<div class="me-auto p-2" style="padding:0px"><button class="btn btn-primary"
+						onclick="backtomain()"><b>Back</b></button>
+				</div>
+				<div class=" p-2 float-xl-right" style="padding:0px;"><button style="float: right;"
+						class="btn btn-primary" onclick="AddEmp()"><b>Add New</b></button>
+				</div>
+			</div>
+			<div style="justify-content: center;display: flex;padding: 5px;">
+				<h4>Employee Master</h4>
+			</div>
+			<input type="text" id="searchBoxEmp" placeholder="Search to filter.." onkeyup="empSearchCls()">
+			<table class="table" border-spacing="1px" padding="2px" width="80%" id="tableDynamicEmpl"></table>
+			<div style="float: right;">
+				page: <span id="pageemp"></span>
+				<button class="btn btn-primary" type="button" onclick="prevPageemp()" href='#'
+					id="btn_prevemp">Prev</button>
+				<button class="btn btn-primary" type="button" onclick="nextPageemp()" href='#'
+					id="btn_nextemp">Next</button>
+			</div>
+
+			<div id="updateEmp" class="card" style="padding:2%;margin:5%;background-color:#D3D3D3;display:none">
+
+				<div style="justify-content: center;display: flex;padding: 5px;">
+					<h4>Employee Detail</h4>
+				</div>
+
+				<form>
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="EmCode">Emp_Code</label>
+							<input type="text" disabled class="form-control" id="EmCode" placeholder="Employee code">
+						</div>
+						<div class="col-sm-6">
+							<label for="EmName">Name</label>
+							<input type="text" class="form-control" id="EmName" placeholder="Name">
+						</div>
+						<div class="col-sm-6 mt-3">
+							<label for="EmEmail">Email</label>
+							<input type="email" class="form-control" id="EmEmail" placeholder="Email">
+						</div>
+						<div class="col-sm-6 mt-3">
+							<label for="Department">Department</label>
+							<select id="Department" class="form-control">
+							</select>
+						</div>
+						<div class="col-sm-6 mt-3">
+							<label for="Roll">Role</label>
+							<select id="Roll" class="form-control">
+								<option selected>
+									<--Select-->
+								</option>
+								<option value="2">Admin</option>
+								<option value="1">Department</option>
+							</select>
+						</div>
+						<div class="col-sm-6 mt-3">
+							<label for="Status">Status</label>
+							<select id="Status" class="form-control">
+								<option selected>
+									<--Select-->
+								</option>
+								<option value="1">Active</option>
+								<option value="0">Block</option>
+							</select>
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary mt-5" onclick="submitempDetails()">Submit</button>
+					<button type="button" class="btn btn-primary mt-5" onclick="cancelEmpDetails()">Cancel</button>
+				</form>
+			</div>
+		</div>
+		
+		<div class="modal" tabindex="-1" role="dialog" id="sendbackpopup" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Remark</h5>
+      </div>
+      <div class="modal-body">
+          <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Comment:</label>
+            <textarea class="form-control" placeholder="Comment for Send Back..." id="comment"></textarea>
+             <textarea class="form-control" id="sendbackparam1" style="display:none;"></textarea>
+              <textarea class="form-control" id="sendbackparam2" style="display:none;"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="getListSendBack()">Submit</button>
+        <button type="button" class="btn btn-secondary" onclick="SendBackClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
